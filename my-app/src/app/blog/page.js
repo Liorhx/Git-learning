@@ -1,21 +1,29 @@
 "use client";
 import React, { useState } from "react";
+import ShowBlogs from "./../components/ShowBlogs";
 
 const page = () => {
-  const [blog, setBlog] = useState([]);
-
+  const [blog, setBlog] = useState("");
+  const [data, setData] = useState([]);
   const handleSubmit = (e) => {
     e.preventDefault();
-    setBlog([...blog, e.target.blog.value]);
-    console.log("blogs:", blog);
+    console.log("formData:", blog);
+    setData([blog, ...data]);
+    setBlog("");
+    // setBlog([...blog, e.target.blog.value]);
   };
+  console.log("data:", data);
 
   return (
     <div>
-      <form className="flex flex-col  items-center gap-4 mt-4">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col  items-center gap-4 mt-4"
+      >
         <label className="flex text-3xl font-semibold flex-col items-center  gap-2">
           <textarea
-            id="story"
+            value={blog}
+            onChange={(e) => setBlog(e.target.value)}
             className="p-4 text-start w-200 h-50 bg-gray-300 rounded-3xl "
             name="blog"
             rows="5"
@@ -26,11 +34,11 @@ const page = () => {
         <button
           type="submit"
           className="font-semibold hover:bg-lime-600 cursor-pointer rounded-2xl p-2 text-xl bg-lime-400 w-40"
-          onSubmit={handleSubmit}
         >
           Submit
         </button>
       </form>
+      <ShowBlogs data={data} />
     </div>
   );
 };
