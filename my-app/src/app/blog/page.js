@@ -12,7 +12,7 @@ const page = () => {
     setBlog("");
     // setBlog([...blog, e.target.blog.value]);
   };
-  console.log("data:", data);
+  console.log("data:");
 
   return (
     <div>
