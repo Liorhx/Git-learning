@@ -5,14 +5,15 @@ import ShowBlogs from "./../components/ShowBlogs";
 const page = () => {
   const [blog, setBlog] = useState("");
   const [data, setData] = useState([]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("formData:", blog);
+    if (blog.trim() === "") return;
+    // console.log("formData:", blog);
     setData([blog, ...data]);
     setBlog("");
-    // setBlog([...blog, e.target.blog.value]);
   };
-  console.log("data:");
+  // console.log("data:");
 
   return (
     <div>
