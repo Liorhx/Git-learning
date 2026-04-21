@@ -6,6 +6,24 @@ const page = () => {
   const [blog, setBlog] = useState("");
   const [data, setData] = useState([]);
 
+  const handleDelete = (index) => {
+    console.log("index", index);
+    setData(data.filter((i) => i !== data[index]));
+  };
+
+  const handleUpdate = (index, editBlog, setShowInput) => {
+    setShowInput(true);
+    setData(
+      data.map((i) => {
+        if (i === data[index]) {
+          return editBlog;
+        } else {
+          return i;
+        }
+      }),
+    );
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (blog.trim() === "") return;
@@ -39,7 +57,11 @@ const page = () => {
           Submit
         </button>
       </form>
-      <ShowBlogs data={data} />
+      <ShowBlogs
+        data={data}
+        handleUpdate={handleUpdate}
+        handleDelete={handleDelete}
+      />
     </div>
   );
 };

@@ -1,33 +1,15 @@
 import React, { useEffect, useState } from "react";
 
-const ShowBlogs = ({ data }) => {
+const ShowBlogs = ({ data, handleUpdate, handleDelete }) => {
   const [editBlog, setEditBlog] = useState("");
   const [showInput, setShowInput] = useState(true);
-  const [updatedData, setUpdatedData] = useState(data);
   const [activateIndex, setActivateIndex] = useState(null);
-  useEffect(() => {
-    setUpdatedData(data);
-  }, [data]);
-  const handleDelete = (index) => {
-    console.log("index", index);
-    setUpdatedData(updatedData.filter((i) => i !== data[index]));
-  };
-  console.log("updatedData", updatedData);
-  const handleSubmit = (index) => {
-    setShowInput(true);
-    setUpdatedData(
-      updatedData.map((i) => {
-        if (i === data[index]) {
-          return editBlog;
-        } else {
-          return i;
-        }
-      }),
-    );
-  };
+
+  // console.log("updatedData", updatedData);
+
   return (
     <div>
-      {updatedData.map((blog, index) => (
+      {data.map((blog, index) => (
         <div key={index} className="border p-4 mt-5 w-3/4 m-auto">
           {activateIndex === index && !showInput && (
             <input
@@ -50,7 +32,7 @@ const ShowBlogs = ({ data }) => {
           </button>
           {!showInput && (
             <button
-              onClick={() => handleSubmit(index)}
+              onClick={() => handleUpdate(index, editBlog, setShowInput)}
               disabled={showInput}
               className="font-semibold ml-2 text-xl bg-lime-300 py-2 px-8 rounded-2xl cursor-pointer"
             >
