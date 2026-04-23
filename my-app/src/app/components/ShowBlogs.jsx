@@ -14,7 +14,7 @@ const ShowBlogs = ({ data, handleUpdate, handleDelete }) => {
           {activateIndex === index && !showInput && (
             <input
               type="text"
-              defaultValue={blog}
+              defaultValue={blog.blog}
               disabled={showInput}
               className="showInput ? '': border p-2 mb-4 text-xl w-full"
               onChange={(e) => setEditBlog(e.target.value)}
