@@ -35,3 +35,24 @@ export async function POST(request) {
     );
   }
 }
+
+export async function GET() {
+  try {
+    await dbConnect();
+
+    const blogs = await Blog.find();
+
+    return Response.json({
+      message: "Blogs fetched",
+      data: blogs,
+    });
+  } catch (error) {
+    return Response.json(
+      {
+        message: "Error fetching blogs",
+        error: error.message,
+      },
+      { status: 500 },
+    );
+  }
+}

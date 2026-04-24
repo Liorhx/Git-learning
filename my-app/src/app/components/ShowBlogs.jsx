@@ -5,7 +5,7 @@ const ShowBlogs = ({ data, handleUpdate, handleDelete }) => {
   const [showInput, setShowInput] = useState(true);
   const [activateIndex, setActivateIndex] = useState(null);
 
-  // console.log("updatedData", updatedData);
+  console.log("updatedData", data);
 
   return (
     <div>
@@ -14,13 +14,13 @@ const ShowBlogs = ({ data, handleUpdate, handleDelete }) => {
           {activateIndex === index && !showInput && (
             <input
               type="text"
-              defaultValue={blog.blog}
+              defaultValue={blog.title}
               disabled={showInput}
               className="showInput ? '': border p-2 mb-4 text-xl w-full"
               onChange={(e) => setEditBlog(e.target.value)}
             />
           )}
-          <p className="mb-4 text-xl from-neutral-950">{blog}</p>
+          <p className="mb-4 text-xl from-neutral-950">{blog.content}</p>
           <button
             onClick={() => {
               setShowInput(false);

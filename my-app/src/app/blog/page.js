@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ShowBlogs from "./../components/ShowBlogs";
 
 const page = () => {
@@ -9,6 +9,15 @@ const page = () => {
     title: "",
     content: "",
   });
+  const getData = async () => {
+    const res = await fetch("/api/blogs");
+    const resData = await res.json();
+    setData(resData.data);
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
   const handleDelete = (index) => {
     console.log("index", index);
     setData(data.filter((i) => i !== data[index]));
@@ -33,10 +42,20 @@ const page = () => {
       [e.target.name]: e.target.value,
     });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    console.log("formData:", formData);
+    const res = await fetch("/api/blogs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: formData.title,
+        content: formData.content,
+      }),
+    });
+    getData();
+    console.log("resData:", res.json());
   };
 
   return (

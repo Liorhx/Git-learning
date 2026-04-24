@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 const UserSchema = new mongoose.Schema(
   {
     title: String,
-    blog: { type: String, required: true },
+    content: { type: String, required: true },
   },
   { timestamps: true },
 );
