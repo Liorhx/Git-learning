@@ -24,16 +24,32 @@ const page = () => {
   };
 
   const handleUpdate = (index, editBlog, setShowInput) => {
-    setShowInput(true);
-    setData(
-      data.map((i) => {
-        if (i === data[index]) {
-          return editBlog;
-        } else {
-          return i;
-        }
-      }),
-    );
+    console.log("index", editBlog);
+    try {
+      fetch(`/api/blogs/${data[index]._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title: editBlog.title,
+          content: editBlog.content,
+        }),
+      });
+
+      setData(
+        data.map((i) => {
+          if (i === data[index]) {
+            return editBlog;
+          } else {
+            return i;
+          }
+        }),
+      );
+      setShowInput(true);
+    } catch (error) {
+      console.log("Error updating blog:", error);
+    }
   };
 
   const handleChange = (e) => {
