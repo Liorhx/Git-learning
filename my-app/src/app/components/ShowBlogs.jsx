@@ -25,10 +25,9 @@ const ShowBlogs = ({ data, handleUpdate, handleDelete }) => {
                 <input
                   type="text"
                   name="title"
-                  value={blog.title}
-                  defaultValue={blog.title}
+                  value={editBlog.title}
                   disabled={showInput}
-                  className="showInput ? '': border p-2 mb-4 text-xl w-full"
+                  className="border p-2 mb-4 text-xl w-full"
                   onChange={handleChange}
                 />
               </label>
@@ -36,11 +35,11 @@ const ShowBlogs = ({ data, handleUpdate, handleDelete }) => {
                 Blog:
                 <input
                   type="text"
-                  name="context"
-                  value={blog.content}
-                  defaultValue={blog.content}
+                  name="content"
+                  value={editBlog.content}
+                  // defaultValue={blog.content}
                   disabled={showInput}
-                  className="showInput ? '': border p-2 mb-4 text-xl w-full"
+                  className="border p-2 mb-4 text-xl w-full"
                   onChange={handleChange}
                 />
               </label>
@@ -52,6 +51,10 @@ const ShowBlogs = ({ data, handleUpdate, handleDelete }) => {
             onClick={() => {
               setShowInput(false);
               setActivateIndex(index);
+              setEditBlog({
+                title: blog.title,
+                content: blog.content,
+              });
             }}
             className="font-semibold text-xl bg-cyan-300 py-2 px-8 rounded-2xl cursor-pointer"
           >

@@ -19,12 +19,19 @@ const page = () => {
   }, []);
 
   const handleDelete = (index) => {
-    console.log("index", index);
-    setData(data.filter((i) => i !== data[index]));
+    // console.log("index", index);
+    try {
+      fetch(`/api/blogs/${data[index]._id}`, {
+        method: "DELETE",
+      });
+      setData(data.filter((i) => i !== data[index]));
+    } catch (error) {
+      console.log("Error deleting blog:", error);
+    }
   };
 
   const handleUpdate = (index, editBlog, setShowInput) => {
-    console.log("index", editBlog);
+    // console.log("index", editBlog);
     try {
       fetch(`/api/blogs/${data[index]._id}`, {
         method: "PUT",

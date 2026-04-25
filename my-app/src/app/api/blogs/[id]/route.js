@@ -6,7 +6,7 @@ export async function PUT(request, context) {
   const { id } = await params;
   try {
     await dbConnect();
-    console.log("PUT API HIT", id);
+    // console.log("PUT API HIT", id);
     const body = await request.json();
     const { title, content } = body;
     console.log("body", body);
@@ -24,6 +24,26 @@ export async function PUT(request, context) {
     return Response.json(
       {
         message: "Error updating blog",
+        error: error.message,
+      },
+      { status: 500 },
+    );
+  }
+}
+
+export async function DELETE(request, context) {
+  const { params } = context;
+  const { id } = await params;
+  try {
+    await dbConnect();
+    await Blog.findByIdAndDelete(id);
+    return Response.json({
+      message: "Blog Deleted Successfully",
+    });
+  } catch (error) {
+    return Response.json(
+      {
+        message: "Error Deleteing Blog",
         error: error.message,
       },
       { status: 500 },
