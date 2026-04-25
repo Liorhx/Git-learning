@@ -1,7 +1,10 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const page = () => {
+  const router = useRouter();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -14,6 +17,9 @@ const page = () => {
       },
       body: JSON.stringify(Object.fromEntries(formData.entries())),
     });
+    if (res.ok) {
+      router.push("/login");
+    }
   };
   return (
     <div className=" mx-auto  mt-10 items-center flex flex-col">
