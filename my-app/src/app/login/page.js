@@ -1,12 +1,39 @@
+"use Client";
+import { useRouter } from "next/navigation";
+
 import React from "react";
 
 const page = () => {
+  const router = useRouter();
+  const hanldeSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: formData.get("email"),
+        password: formData.get("password"),
+      }),
+    });
+    const data = await res.json();
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+      router.push("/");
+    }
+  };
   return (
     <div className=" mx-auto  mt-10 items-center flex flex-col">
       <h1 className="text-3xl text-black font-bold  items-center">
         Login Page
       </h1>
-      <form className="flex flex-col  items-center gap-4 mt-4">
+      <form
+        onSubmit={hanldeSubmit}
+        className="flex flex-col  items-center gap-4 mt-4"
+      >
         <label className="flex  text-3xl font-semibold  items-center  gap-2">
           <input
             type="email"
