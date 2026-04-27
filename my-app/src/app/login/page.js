@@ -1,4 +1,4 @@
-"use Client";
+"use client";
 import { useRouter } from "next/navigation";
 
 import React from "react";
@@ -20,6 +20,7 @@ const page = () => {
       }),
     });
     const data = await res.json();
+    console.log("data:", data);
     if (data.token) {
       localStorage.setItem("token", data.token);
       router.push("/");
