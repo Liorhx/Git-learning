@@ -12,11 +12,11 @@ const ShowBlogs = ({ data, handleUpdate, handleDelete }) => {
     setEditBlog({ ...editBlog, [e.target.name]: e.target.value });
   };
 
-  console.log("updatededitData", editBlog);
+  // console.log("updatededitData", editBlog);
 
   return (
     <div>
-      {data.map((blog, index) => (
+      {data?.map((blog, index) => (
         <div key={index} className="border p-4 mt-5 w-3/4 m-auto">
           {activateIndex === index && !showInput && (
             <form action="">

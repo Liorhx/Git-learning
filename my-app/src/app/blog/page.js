@@ -20,9 +20,17 @@ const page = () => {
 
   const handleDelete = (index) => {
     // console.log("index", index);
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("No token found, please log in.");
+      return;
+    }
     try {
       fetch(`/api/blogs/${data[index]._id}`, {
         method: "DELETE",
+        headers: {
+          authorization: `Bearer ${token}`,
+        },
       });
       setData(data.filter((i) => i !== data[index]));
     } catch (error) {
@@ -32,10 +40,16 @@ const page = () => {
 
   const handleUpdate = (index, editBlog, setShowInput) => {
     // console.log("index", editBlog);
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("No token found, please log in.");
+      return;
+    }
     try {
       fetch(`/api/blogs/${data[index]._id}`, {
         method: "PUT",
         headers: {
+          authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -67,9 +81,15 @@ const page = () => {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      console.log("No token found, please log in.");
+      return;
+    }
     const res = await fetch("/api/blogs", {
       method: "POST",
       headers: {
+        authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
