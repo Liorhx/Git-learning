@@ -1,9 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import ShowBlogs from "./../components/ShowBlogs";
+import { useRouter } from "next/navigation";
 
 const page = () => {
   // const [blog, setBlog] = useState("");
+  const router = useRouter();
   const [data, setData] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
@@ -16,6 +18,13 @@ const page = () => {
   };
   useEffect(() => {
     getData();
+  }, []);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      router.push("/login");
+    }
   }, []);
 
   const handleDelete = (index) => {
